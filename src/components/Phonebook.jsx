@@ -13,6 +13,7 @@ class Phonebook extends Component {
       ],
       name: '',
       number: '',
+      filter: '',
     };
   }
   handleSubmit = evt => {
@@ -40,6 +41,14 @@ class Phonebook extends Component {
         },
       ],
     }));
+  };
+  filterContacts = () =>
+    this.state.contacts.filter(contact =>
+      contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
+    );
+  onFilterChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+    this.filterContacts();
   };
   render() {
     return (
@@ -81,11 +90,20 @@ class Phonebook extends Component {
           <button type="submit">Add Contact</button>
         </form>
         <h3>Contacts</h3>
-        <ul>
-          {this.state.contacts.map(({ id, name, number }) => (
-            <li key={id}>{`${name}:   ${number}`}</li>
-          ))}
-        </ul>
+        <input type="text" name="filter" onChange={this.onInputChange} />
+        {!this.state.filter ? (
+          <ul>
+            {this.state.contacts.map(({ id, name, number }) => (
+              <li key={id}>{`${name}:   ${number}`}</li>
+            ))}
+          </ul>
+        ) : (
+          <ul>
+            {this.filterContacts().map(({ id, name, number }) => (
+              <li key={id}>{`${name}:   ${number}`}</li>
+            ))}
+          </ul>
+        )}
       </>
     );
   }
