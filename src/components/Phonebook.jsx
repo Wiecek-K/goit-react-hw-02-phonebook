@@ -23,35 +23,37 @@ class Phonebook extends Component {
     const form = evt.currentTarget;
     const name = form.elements.name.value;
     const number = form.elements.number.value;
-    this.setState(prevState => ({
-      contacts: [
-        ...prevState.contacts,
-        {
-          id: nanoid(),
-          name: name,
-          number: number,
-        },
-      ],
-    }));
-  };
-  onNameChange = e => {
-    this.setState({ name: e.target.value });
+
+    if (this.state.contacts.some(contact => contact.name === name)) {
+      alert(`${name} is already in contacts`);
+    } else {
+      this.setState(prevState => ({
+        contacts: [
+          ...prevState.contacts,
+          {
+            id: nanoid(),
+            name: name,
+            number: number,
+          },
+        ],
+      }));
+    }
   };
   onInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  createNewContact = () => {
-    this.setState(prevState => ({
-      contacts: [
-        ...prevState.contacts,
-        {
-          id: nanoid(),
-          name: this.state.name,
-          number: this.state.number,
-        },
-      ],
-    }));
-  };
+  //   createNewContact = () => {
+  //     this.setState(prevState => ({
+  //       contacts: [
+  //         ...prevState.contacts,
+  //         {
+  //           id: nanoid(),
+  //           name: this.state.name,
+  //           number: this.state.number,
+  //         },
+  //       ],
+  //     }));
+  //   };
   filterContacts = () =>
     this.state.contacts.filter(contact =>
       contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
