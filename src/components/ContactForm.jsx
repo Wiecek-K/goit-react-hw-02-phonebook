@@ -35,7 +35,6 @@ class ContactFormt extends Component {
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            defaultValue={'227-91-26'}
           />
         </label>
         <button type="submit">Add Contact</button>
