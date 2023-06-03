@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import ContactList from './ContactList';
 import Filter from './Filter';
 import ContactFormt from './ContactForm';
+
 class Phonebook extends Component {
   constructor() {
     super();
@@ -16,12 +17,16 @@ class Phonebook extends Component {
       filter: '',
     };
   }
+
   handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.currentTarget;
     const name = form.elements.name.value;
     const number = form.elements.number.value;
-    if (this.state.contacts.some(contact => contact.name === name)) {
+    const isContactExist = this.state.contacts.some(
+      contact => contact.name === name
+    );
+    if (isContactExist) {
       alert(`${name} is already in contacts`);
     } else {
       this.setState(prevState => ({
@@ -37,7 +42,8 @@ class Phonebook extends Component {
       form.reset();
     }
   };
-  onInputChange = e => {
+
+  handleInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
   filterContacts = () =>
@@ -57,19 +63,15 @@ class Phonebook extends Component {
         <ContactFormt onSubmit={this.handleSubmit} />
         <h3>Contacts</h3>
         <Filter onInputChange={this.onInputChange} />
-        {!this.state.filter ? (
-          <ContactList
-            contacts={this.state.contacts}
-            onDeleteContact={this.deleteContact}
-          />
-        ) : (
-          <ContactList
-            contacts={this.filterContacts()}
-            onDeleteContact={this.deleteContact}
-          />
-        )}
+        <ContactList
+          contacts={
+            !this.stateFilter ? this.state.contacts : this.filterContacts()
+          }
+          onDeleteContact={this.deleteContact}
+        />
       </>
     );
   }
 }
+
 export default Phonebook;

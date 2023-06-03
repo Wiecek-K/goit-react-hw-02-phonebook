@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import css from './ContactForm.module.css';
 
 class ContactFormt extends Component {
   static propTypes = {
@@ -7,16 +8,7 @@ class ContactFormt extends Component {
   };
   render() {
     return (
-      <form
-        style={{
-          border: '1px solid black',
-          maxWidth: '500px',
-          padding: '2em',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-        onSubmit={this.props.onSubmit}
-      >
+      <form className={css.contactForm} onSubmit={this.props.onSubmit}>
         <label>
           Name
           <input
