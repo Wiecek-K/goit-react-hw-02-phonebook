@@ -62,10 +62,10 @@ class Phonebook extends Component {
         <h1>Phonebook</h1>
         <ContactFormt onSubmit={this.handleSubmit} />
         <h3>Contacts</h3>
-        <Filter onInputChange={this.onInputChange} />
+        <Filter onInputChange={this.handleInputChange} />
         <ContactList
           contacts={
-            !this.stateFilter ? this.state.contacts : this.filterContacts()
+            !this.state.filter ? this.state.contacts : this.filterContacts()
           }
           onDeleteContact={this.deleteContact}
         />
